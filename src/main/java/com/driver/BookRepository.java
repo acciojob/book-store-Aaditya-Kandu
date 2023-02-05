@@ -26,9 +26,14 @@ public class BookRepository {
 
     public Book save(Book book){
 
+        book.setId(getId());
         bookList.add(book);
-        //return null;
+        setId(getId()+1);
         return book;
+
+//        bookList.add(book);
+//        //return null;
+//        return book;
     }
 
     public Book findBookById(int id){
