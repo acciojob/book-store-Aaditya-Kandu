@@ -15,19 +15,20 @@ public class BookController {
 
     // One example controller, make the rest by yourself
     @PostMapping("/create-book")
-    public ResponseEntity createBook(@RequestBody Book book){
+    public ResponseEntity<Book> createBook(@RequestBody() Book book){
         Book newbook = bookService.createBook(book);
         return new ResponseEntity<>(newbook, HttpStatus.CREATED);
     }
 
     // get book by Id
     @GetMapping("get-book-by-id/{id}")
-    public ResponseEntity getBook(@PathVariable("id") String id){
+    public ResponseEntity<Book> getBook(@PathVariable("id") String id){
 
         Book response = bookService.findBookById(id);
         return new ResponseEntity<>(response , HttpStatus.ACCEPTED);
     }
 
+    @GetMapping("/get-all-books")
     public ResponseEntity getAllBook(){
 
         List<Book> list=bookService.findAllBooks();
@@ -35,7 +36,7 @@ public class BookController {
     }
 
     @GetMapping("/get-books-by-author")
-    public ResponseEntity getBookByAuthor(@RequestParam("q") String author){
+    public ResponseEntity<List<Book>> getBookByAuthor(@RequestParam("author") String author){
 
         List<Book> list = new ArrayList<>();
         list = bookService.findBooksByAuthor(author);
@@ -44,7 +45,7 @@ public class BookController {
     }
 
     @GetMapping("/get-books-by-genre")
-    public ResponseEntity getBookByGenre(@RequestParam("q") String genre){
+    public ResponseEntity<List<Book>> getBookByGenre(@RequestParam("genre") String genre){
 
         List<Book> list = new ArrayList<>();
         list = bookService.findBooksByGenre(genre);
