@@ -6,36 +6,84 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BookRepository {
 
+   // HashMap<Integer , Book> db = new HashMap<>();
+
+    List<Book> bookList;
+    private int id;
+
     public BookRepository(){
-        
+        this.bookList = new ArrayList<Book>();
+        this.id = 1;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Book save(Book book){
-        return null;
+
+        bookList.add(book);
+        //return null;
+        return book;
     }
 
     public Book findBookById(int id){
 
+        for (Book nums : bookList){
+            if (nums.getId() == id)
+                return nums;
+        }
+       // return null;
         return null;
     }
 
     public List<Book> findAll(){
-        return null;
+
+        return bookList;
+        //return null;
     }
 
     public void deleteBookById(int id){
-        return;
+
+        for (Book nums : bookList){
+            if (nums.getId() == id) {
+                bookList.remove(nums);
+                return;
+            }
+        }
+
     }
 
     public void deleteAll(){
+        bookList.clear();
         return;
     }
 
     public List<Book> findBooksByAuthor(String author){
-        return null;
+
+        List<Book> list = new ArrayList<>();
+        for (Book nums : bookList){
+            if (nums.getAuthor().equals(author)){
+                list.add(nums);
+            }
+        }
+        return list;
+        //return null;
     }
 
     public List<Book> findBooksByGenre(String genre){
-        return null;
+
+        List<Book> list=new ArrayList<>();
+        for(Book book: bookList){
+            if(book.getGenre().equals(genre)){
+                list.add(book);
+            }
+        }
+        return list;
+        //return null;
     }
 }
